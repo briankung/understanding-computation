@@ -28,5 +28,14 @@ describe Machine do
         assert_output(/false/) { @vm.run }
       end
     end
+
+    describe 'with Variables' do
+      it 'reduces' do
+        expression = Add(Variable(:x), Variable(:y))
+        env = { x: Number(3), y: Number(4) }
+        @vm = Machine.new(expression, env)
+        assert_output(/3 \+ y/) { @vm.run }
+      end
+    end
   end
 end
