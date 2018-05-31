@@ -1,7 +1,4 @@
-require_relative '../lib/ast_nodes'
 require_relative '../lib/machine'
-
-include ASTNodes
 
 describe Machine do
   before do

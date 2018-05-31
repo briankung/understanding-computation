@@ -1,7 +1,3 @@
-require_relative '../lib/ast_nodes'
-
-include ASTNodes
-
 describe ASTNodes do
   it 'constructs an abstract syntax tree' do
     Add(
