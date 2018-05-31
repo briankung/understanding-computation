@@ -2,7 +2,7 @@ require_relative '../lib/ast_nodes'
 
 include ASTNodes
 
-describe 'Understanding Computation' do
+describe ASTNodes do
   it 'constructs an abstract syntax tree' do
     Add(
       Multiply(Number(1), Number(2)),
