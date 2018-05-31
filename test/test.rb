@@ -1,4 +1,5 @@
 require_relative 'test_helper'
 
-require_relative 'ast_nodes_test'
-require_relative 'machine_test'
+Dir['*_test.rb', base: 'test'].each do |file|
+  require_relative file
+end
