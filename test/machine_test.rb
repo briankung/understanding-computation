@@ -22,5 +22,13 @@ describe Machine do
     it 'calls #reduce on the given expression until it no longer can' do
       assert_output(/14/) { @vm.run }
     end
+
+    describe 'with Booleans' do
+      it 'reduces to a boolean' do
+        expression = LessThan(Number(5), Add(Number(2), Number(2)))
+        @vm = Machine.new(expression)
+        assert_output(/false/) { @vm.run }
+      end
+    end
   end
 end
