@@ -1,5 +1,3 @@
-require_relative 'ast_nodes/add'
-require_relative 'ast_nodes/boolean'
-require_relative 'ast_nodes/less_than'
-require_relative 'ast_nodes/multiply'
-require_relative 'ast_nodes/number'
+Dir['**/*.rb', base: 'lib'].each do |file|
+  require_relative file
+end
