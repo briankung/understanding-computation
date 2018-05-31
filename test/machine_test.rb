@@ -6,7 +6,8 @@ describe Machine do
       Multiply(Number(1), Number(2)),
       Multiply(Number(3), Number(4))
     )
-    @vm = Machine.new(@expression)
+    @environment = { x: Number(3), y: Number(4) }
+    @vm = Machine.new(@expression, @environment)
   end
 
   describe '#step' do
@@ -23,7 +24,7 @@ describe Machine do
     describe 'with Booleans' do
       it 'reduces to a boolean' do
         expression = LessThan(Number(5), Add(Number(2), Number(2)))
-        @vm = Machine.new(expression)
+        @vm = Machine.new(expression, {})
         assert_output(/false/) { @vm.run }
       end
     end

@@ -12,11 +12,11 @@ module ASTNodes
       true
     end
 
-    def reduce
+    def reduce(environment)
       if left.reducible?
-        Multiply(left.reduce, right)
+        Multiply(left.reduce(environment), right)
       elsif right.reducible?
-        Multiply(left, right.reduce)
+        Multiply(left, right.reduce(environment))
       else
         Number.new(left.value * right.value)
       end

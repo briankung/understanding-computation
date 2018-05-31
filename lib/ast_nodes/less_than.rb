@@ -12,11 +12,11 @@ module ASTNodes
       true
     end
 
-    def reduce
+    def reduce(environment)
       if left.reducible?
-        LessThan(left.reduce, right)
+        LessThan(left.reduce(environment), right)
       elsif right.reducible?
-        LessThan(left, right.reduce)
+        LessThan(left, right.reduce(environment))
       else
         Boolean(left.value < right.value)
       end

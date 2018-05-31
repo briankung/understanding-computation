@@ -34,6 +34,7 @@ describe ASTNodes do
 
   describe '#reduce' do
     before do
+      @environment = {}
       @node = Add(
         Multiply(Number(1), Number(2)),
         Multiply(Number(3), Number(4))
@@ -46,7 +47,7 @@ describe ASTNodes do
         Multiply(Number(3), Number(4))
       )
 
-      assert_equal reduced, @node.reduce
+      assert_equal reduced, @node.reduce(@environment)
     end
 
     it 'reduces both sides after two steps' do
@@ -55,9 +56,9 @@ describe ASTNodes do
         Number(12)
       )
 
-      @node = @node.reduce
+      @node = @node.reduce(@environment)
 
-      assert_equal reduced, @node.reduce
+      assert_equal reduced, @node.reduce(@environment)
     end
   end
 end
