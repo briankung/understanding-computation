@@ -52,5 +52,36 @@ describe Machine do
         assert @vm.environment = { x: Number(3) }
       end
     end
+
+    describe 'with If' do
+      before do
+        @statement = If(
+          Variable(:x),
+          Assign(:y, Number(2)),
+          Assign(:y, Number(3))
+        )
+
+        @env = { x: Boolean(true) }
+
+        @vm = Machine(@statement, @env)
+      end
+
+      describe "when condition is true" do
+        it "reduces" do
+          # This next line isn't strictly necessary, it just makes the test output prettier
+          assert_output(/do-nothing/) { @vm.run }
+          assert @vm.environment.fetch(:y) == Number(2)
+        end
+      end
+
+      describe "when condition is false" do
+        it "reduces" do
+          @env[:x] = Boolean(false)
+
+          assert_output(/do-nothing/) { @vm.run }
+          assert @vm.environment.fetch(:y) == Number(3)
+        end
+      end
+    end
   end
 end
