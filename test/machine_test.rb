@@ -7,7 +7,7 @@ describe Machine do
       Multiply(Number(3), Number(4))
     )
     @environment = { x: Number(3), y: Number(4) }
-    @vm = Machine.new(@expression, @environment)
+    @vm = Machine(@expression, @environment)
   end
 
   describe '#step' do
@@ -16,7 +16,9 @@ describe Machine do
       @expression.expect :reduce, nil
       @vm.step
     end
+  end
 
+  describe "#run" do
     it 'calls #reduce on the given expression until it no longer can' do
       assert_output(/14/) { @vm.run }
     end
@@ -24,7 +26,8 @@ describe Machine do
     describe 'with Booleans' do
       it 'reduces to a boolean' do
         expression = LessThan(Number(5), Add(Number(2), Number(2)))
-        @vm = Machine.new(expression, {})
+        @vm = Machine(expression, {})
+
         assert_output(/false/) { @vm.run }
       end
     end
@@ -33,8 +36,20 @@ describe Machine do
       it 'reduces' do
         expression = Add(Variable(:x), Variable(:y))
         env = { x: Number(3), y: Number(4) }
-        @vm = Machine.new(expression, env)
-        assert_output(/3 \+ y/) { @vm.run }
+        @vm = Machine(expression, env)
+
+        assert_output(/3 \+ 4/) { @vm.run }
+      end
+    end
+
+    describe 'with Assignment' do
+      it "reduces" do
+        statement = Assign(:x, Add(Variable(:x), Number(1)))
+        environment = { x: Number(2) }
+        @vm = Machine(statement, environment)
+
+        assert_output(/do-nothing/) { @vm.run }
+        assert @vm.environment = { x: Number(3) }
       end
     end
   end

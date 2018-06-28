@@ -18,7 +18,7 @@ module ASTNodes
       elsif right.reducible?
         Add(left, right.reduce(environment))
       else
-        Number.new(left.value + right.value)
+        Number(left.value + right.value)
       end
     end
   end
