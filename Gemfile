@@ -1,6 +1,9 @@
 source "https://rubygems.org"
 
-gem "minitest"
+group :test do
+  gem 'minitest'
+  gem 'minitest-reporters'
+end
 
 # non-ruby testing deps:
 # entr - https://superuser.com/a/665208
