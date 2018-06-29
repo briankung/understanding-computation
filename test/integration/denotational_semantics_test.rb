@@ -34,4 +34,32 @@ describe 'denotational semantics' do
       assert_equal "7", result
     end
   end
+
+  describe Add do
+    before { @add = Add(Variable(:x), Number(1)) }
+
+    it "generates valid ruby" do
+      function = @add.to_ruby.yield_self(&method(:eval))
+      assert_equal 8, function.call(x: 7)
+    end
+
+    it "generates valid js" do
+      result, err = node_exec(@add.to_js, x: 7)
+      assert_equal "8", result
+    end
+  end
+
+  describe Multiply do
+    before { @mult = Multiply(Variable(:x), Number(10)) }
+
+    it "generates valid ruby" do
+      function = @mult.to_ruby.yield_self(&method(:eval))
+      assert_equal 70, function.call(x: 7)
+    end
+
+    it "generates valid js" do
+      result, err = node_exec(@mult.to_js, x: 7)
+      assert_equal "70", result
+    end
+  end
 end
