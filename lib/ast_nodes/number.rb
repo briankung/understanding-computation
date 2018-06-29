@@ -17,6 +17,16 @@ module ASTNodes
     def evaluate(environment)
       self
     end
+
+    # Denotational semantics
+
+    def to_js
+      "(e) => { return #{value.inspect} }"
+    end
+
+    def to_ruby
+      "->(e) { #{value.inspect} }"
+    end
   end
 
   module_function
