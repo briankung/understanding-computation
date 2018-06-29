@@ -99,5 +99,20 @@ describe Machine do
         assert vm.environment.fetch(:y) == Number(6)
       end
     end
+
+    describe 'While' do
+      it "reduces" do
+        vm = Machine(
+          While(
+            LessThan(Variable(:x), Number(5)),
+            Assign(:x, Multiply(Variable(:x), Number(3)))
+          ),
+          { x: Number(1) }
+        )
+
+        assert_output(/do-nothing, {:x=>«9»}/) { vm.run }
+        assert vm.environment.fetch(:x) == Number(9)
+      end
+    end
   end
 end
