@@ -14,12 +14,18 @@ module ASTNodes
 
     def reduce(environment)
       case first
-      when DoNothing()
+      when DoNothing
         [second, environment]
       else
         reduced_first, reduced_environment = first.reduce(environment)
         [Sequence(reduced_first, second), reduced_environment]
       end
+    end
+
+    # Big step
+
+    def evaluate(environment)
+      second.evaluate(first.evaluate(environment))
     end
   end
 

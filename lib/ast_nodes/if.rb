@@ -27,6 +27,17 @@ module ASTNodes
         end
       end
     end
+
+    # Big step
+
+    def evaluate(environment)
+      case condition.evaluate(environment)
+      when Boolean(true)
+        consequence.evaluate(environment)
+      when Boolean(false)
+        alternative.evaluate(environment)
+      end
+    end
   end
 
   module_function

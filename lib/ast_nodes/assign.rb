@@ -19,6 +19,12 @@ module ASTNodes
         [DoNothing(), environment.merge(name => expression)]
       end
     end
+
+    # Big step
+
+    def evaluate(environment)
+      environment.merge(name => expression.evaluate(environment))
+    end
   end
 
   module_function

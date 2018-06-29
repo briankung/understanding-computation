@@ -22,5 +22,16 @@ describe 'big-step evaluation' do
         assert_equal exp.evaluate(x: Number(2), y: Number(5)), Boolean(true)
       end
     end
+
+    describe "pg 46" do
+      it "evaluates to a single value" do
+        statement = Sequence(
+          Assign(:x, Add(Number(1), Number(1))),
+          Assign(:y, Add(Variable(:x), Number(3)))
+        )
+
+        assert_equal statement.evaluate({}), { x: Number(2), y: Number(5) }
+      end
+    end
   end
 end

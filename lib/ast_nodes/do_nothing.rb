@@ -11,6 +11,12 @@ module ASTNodes
     def reducible?
       false
     end
+
+    # Big step
+
+    def evaluate(environment)
+      environment
+    end
   end
 
   module_function
