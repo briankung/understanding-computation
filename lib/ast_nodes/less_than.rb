@@ -21,6 +21,12 @@ module ASTNodes
         Boolean(left.value < right.value)
       end
     end
+
+    # Big step
+
+    def evaluate(environment)
+      Boolean(left.evaluate(environment).value < right.evaluate(environment).value)
+    end
   end
 
   module_function

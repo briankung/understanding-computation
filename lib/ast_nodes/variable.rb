@@ -15,6 +15,12 @@ module ASTNodes
     def reduce(environment)
       environment[name]
     end
+
+    # Big step
+
+    def evaluate(environment)
+      environment[name]
+    end
   end
 
   module_function

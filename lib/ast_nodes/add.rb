@@ -21,6 +21,12 @@ module ASTNodes
         Number(left.value + right.value)
       end
     end
+
+    # Big step
+
+    def evaluate(environment)
+      Number(left.evaluate(environment).value + right.evaluate(environment).value)
+    end
   end
 
   module_function
