@@ -1,6 +1,7 @@
 require 'pry'
 require 'minitest/autorun'
 require_relative '../lib/ast_nodes'
+require_relative '../lib/machine'
 
 include ASTNodes
 

@@ -1,5 +1,3 @@
-require_relative '../lib/machine'
-
 describe Machine do
   before do
     @expression = Add(
