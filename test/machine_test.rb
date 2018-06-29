@@ -23,7 +23,7 @@ describe Machine do
       assert_output(/14/) { @vm.run }
     end
 
-    describe 'with Booleans' do
+    describe 'Booleans' do
       it 'reduces to a boolean' do
         expression = LessThan(Number(5), Add(Number(2), Number(2)))
         @vm = Machine(expression, {})
@@ -32,7 +32,7 @@ describe Machine do
       end
     end
 
-    describe 'with Variables' do
+    describe 'Variables' do
       it 'reduces' do
         expression = Add(Variable(:x), Variable(:y))
         env = { x: Number(3), y: Number(4) }
@@ -42,7 +42,7 @@ describe Machine do
       end
     end
 
-    describe 'with Assignment' do
+    describe 'Assignment' do
       it "reduces" do
         statement = Assign(:x, Add(Variable(:x), Number(1)))
         environment = { x: Number(2) }
@@ -53,7 +53,7 @@ describe Machine do
       end
     end
 
-    describe 'with If' do
+    describe 'If' do
       before do
         @statement = If(
           Variable(:x),
@@ -81,6 +81,22 @@ describe Machine do
           assert_output(/do-nothing/) { @vm.run }
           assert @vm.environment.fetch(:y) == Number(3)
         end
+      end
+    end
+
+    describe 'Sequence' do
+      it "reduces" do
+        vm = Machine(
+          Sequence(
+            Assign(:x, Add(Number(1), Number(2))),
+            Assign(:y, Add(Variable(:x), Number(3)))
+          ),
+          {}
+        )
+
+        assert_output(/:x=>.?3/) { vm.run }
+        assert vm.environment.fetch(:x) == Number(3)
+        assert vm.environment.fetch(:y) == Number(6)
       end
     end
   end
